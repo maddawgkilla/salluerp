@@ -3,6 +3,7 @@ var router = express.Router();
 
 // Import the Model
 const Order = require("../models/Order");
+const Buyer = require("../models/Buyer");
 
 
 /* GET users listing. */
@@ -15,20 +16,26 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/new', (req, res, next) => {
-  res.render('order/new');
+  Buyer.find().then((foundBuyers) => {
+    res.render('order/new', {
+      foundBuyers
+    });
+  }).catch((err) => {
+    throw err;
+  });
 });
 
 router.post('/', (req, res, next) => {
   // res.json(req);
-  // console.log(req.body);
+  console.log(req.body);
   const { shopNo, weight, orderType, cost, costPerKg, buyer, is_credit, discount } = req.body;
   if(orderType == 'retail') {
     const newOrder = new Order({
-      shopNo,
+      shop_no: shopNo,
       weight,
-      orderType,
+      order_type: orderType,
       cost,
-      costPerKg
+      cost_per_kg: costPerKg
     });
     newOrder.save().then((savedOrder) => {
       res.json(savedOrder);
@@ -36,21 +43,42 @@ router.post('/', (req, res, next) => {
       throw err;
     });
   } else {
-    const newOrder = new Order({
-      shopNo,
-      weight,
-      orderType,
-      cost,
-      costPerKg,
-      buyer,
-      is_credit,
-      discount
-    });
-    newOrder.save().then((savedOrder) => {
-      res.json(savedOrder);
-    }).catch((err) => {
-      throw err;
-    });
+    if (!discount) {
+      console.log("no discount");
+      const newOrder = new Order({
+        shop_no: shopNo,
+        weight,
+        order_type: orderType,
+        cost,
+        cost_per_kg: costPerKg,
+        buyer_name: buyer,
+        is_credit,
+        discount
+      });
+      newOrder.save().then((savedOrder) => {
+        res.json(savedOrder);
+      }).catch((err) => {
+        throw err;
+      });
+    } else {
+      console.log("There is a disount");
+      const discounted_cost = cost - (cost * (discount/100));
+      const newOrder = new Order({
+        shop_no: shopNo,
+        weight,
+        order_type: orderType,
+        cost: discounted_cost,
+        cost_per_kg: costPerKg,
+        buyer_name: buyer,
+        is_credit,
+        discount
+      });
+      newOrder.save().then((savedOrder) => {
+        res.json(savedOrder);
+      }).catch((err) => {
+        throw err;
+      });
+    }
   }
 });
 

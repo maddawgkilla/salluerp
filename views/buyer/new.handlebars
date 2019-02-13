@@ -1,0 +1,16 @@
+<script src="/javascripts/order.js" type="text/javascript"></script>
+
+<div>
+    <h1 id="formHeader">New Buyer</h1>
+
+    <form id="orderForm" class="col-md-6" action="/buyers" method="POST">
+
+        <div class="form-group row">
+            <label for="buyer_name" class="col-md-4 col-form-label">Buyer Name</label>
+            <div class="col-md-8">
+                <input name="buyer_name" type="text" class="form-control-plaintext" id="buyerName" placeholder="Type in the Buyer name">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Place Order</button>
+    </form>
+</div>

@@ -4,6 +4,13 @@
 <h1 id="formHeader">New Order</h1>
 
     <form id="orderForm" class="col-md-6" action="/orders" method="POST">
+    <div class="form-group row">
+            <label for="orderType">Order Type</label>
+            <select name="orderType" class="form-control" id="orderType">
+                <option value="retail">Retail</option>
+                <option value="wholesale">Wholesale</option>
+            </select>
+        </div>
         <div class="form-group row">
             <label for="shopNo" class="col-md-4 col-form-label">Shop No</label>
             <div class="col-md-8">
@@ -13,43 +20,34 @@
         <div class="form-group row">
             <label for="weight" class="col-md-4 col-form-label">Weight in KG</label>
             <div class="col-md-8">
-                <input name="weight" type="text" class="form-control" id="weight" placeholder="Weight in KGs">
+                <input required name="weight" type="text" class="form-control" id="weight" placeholder="Weight in KGs">
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="orderType">Order Type</label>
-            <select name="orderType" class="form-control" id="orderType">
-                <option value="retail">Retail</option>
-                <option value="wholesale">Wholesale</option>
-            </select>
         </div>
         <div class="form-group row">
             <label for="cost" class="col-md-4 col-form-label">Cost</label>
             <div class="col-md-8">
-                <input name="cost" type="number" readonly class="form-control-plaintext" id="cost" value="1000">
+                <input name="cost" type="text" readonly class="form-control-plaintext" id="cost" value="Rs. 0">
             </div>
         </div>
         <div class="form-group row">
             <label for="costPerKg" class="col-md-4 col-form-label">Cost Per KG</label>
             <div class="col-md-8">
-                <input name="costPerKg" type="number" readonly class="form-control-plaintext" id="cost" value="220">
+                <input name="costPerKg" type="text" readonly class="form-control-plaintext" id="costPerKg" value="220">
             </div>
         </div>
         <div id="buyerDiv" class="form-group row hide">
             <label for="buyer">Buyer</label>
             <select name="buyer" class="form-control" id="buyer">
-                <option value="none" selected>-</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+                <option value="">Select a Buyer from the List</option>
+                {{#each foundBuyers}}
+                <option value="{{this.buyer_name}}">{{this.buyer_name}}</option>
+                {{/each}}
             </select>
         </div>
         <div id="creditDiv" class="form-group row hide">
             <label for="is_credit">Purchase Option</label>
             <select name="is_credit" class="form-control" id="credit">
-                <option value="none" selected>-</option>
+                <option value="">Select a Payment Option</option>
                 <option value="0">Cash</option>
                 <option value="1">Credit</option>
             </select>
