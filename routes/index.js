@@ -10,15 +10,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/dashboard', auth.ensureAuthenticated, (req, res) => {
-  res.render('dashboard', {
-    username: req.user.username,
-    is_admin: req.user.is_admin,
-    id: req.user._id
-  });
+  res.render('store/dashboard');
 });
 
 router.get('/admin', auth.ensureAuthenticated, auth.isAdmin, (req, res) => {
-  res.render('dashboard');
+  res.render('store/dashboard');
 });
 
 module.exports = router;

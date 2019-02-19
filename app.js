@@ -6,6 +6,7 @@ var logger = require('morgan');
 const exphbs = require("express-handlebars");
 const passport = require("passport");
 const session = require('express-session');
+const flash = require('express-flash');
 
 
 // DB setup
@@ -13,8 +14,10 @@ const mongoose = require("mongoose");
 const db = require("./config/database-local");
 
 // Dataase Connection
-mongoose.connect(db.mongoUri, { useNewUrlParser: true }, () => {
-  console.log("DB connected");
+mongoose.connect(db.mongoUri, { useNewUrlParser: true }).then(() => {
+  console.log("DB Started");
+}, (err) => {
+  throw err;
 });
 
 // Adding Passport configuration
@@ -45,6 +48,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+
+// Set Local Variables
+app.use(function(req, res, next){
+  res.locals.currentUser = req.user;
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

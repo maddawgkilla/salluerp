@@ -8,8 +8,9 @@ const Buyer = require("../models/Buyer");
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  Order.find().then((foundUsers) => {
-    res.json(foundUsers);
+  Order.find().then((foundOrders) => {
+    // res.json(foundOrders);
+    res.render('order/index', {orders: foundOrders});
   }).catch((err) => {
     throw err;
   });
