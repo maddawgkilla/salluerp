@@ -1,6 +1,14 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+html {
+  height: 100%;
 }
 
 a {
@@ -17,4 +25,12 @@ a {
 
 .hide {
   display: none;
+}
+
+.content {
+  max-width: 70%;
+  background-color: aliceblue;
+  min-width: 340px;
+  padding: 30px;
+  margin: 0 auto;
 }

@@ -9,7 +9,7 @@ const Buyer = require("../models/Buyer");
 router.get('/', function(req, res, next) {
   Buyer.find().then((foundBuyers) => {
     // res.json(foundBuyers);
-    res.render("buyer/index");
+    res.render("buyer/index", { foundBuyers });
   }).catch((err) => {
     throw err;
   });

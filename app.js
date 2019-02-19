@@ -4,6 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const exphbs = require("express-handlebars");
+const passport = require("passport");
+const session = require('express-session');
+
 
 // DB setup
 const mongoose = require("mongoose");
@@ -13,6 +16,9 @@ const db = require("./config/database-local");
 mongoose.connect(db.mongoUri, { useNewUrlParser: true }, () => {
   console.log("DB connected");
 });
+
+// Adding Passport configuration
+require('./config/passport')(passport);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -26,11 +32,19 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+// Express Session Middleware Without the Session middleware the req.user cannot persist
+app.use(session({
+  secret: 'salluerpwalasecret',
+  resave: true,
+  saveUninitialized: true
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
