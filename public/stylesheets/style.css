@@ -34,3 +34,21 @@ a {
   padding: 30px;
   margin: 0 auto;
 }
+
+.panel {
+  padding: 18px 40px;
+  margin: 7px;
+  background-color:#efeff5;
+  border-radius: 15px;
+  text-decoration: none;
+  color: black;
+}
+
+.panel:hover {
+  background-color: #f68084;
+  box-shadow: 3px 2px #8887FF;
+}
+
+.order-table {
+  max-width: 90% !important;
+}

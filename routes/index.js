@@ -13,8 +13,8 @@ router.get('/dashboard', auth.ensureAuthenticated, (req, res) => {
   res.render('store/dashboard');
 });
 
-router.get('/admin', auth.ensureAuthenticated, auth.isAdmin, (req, res) => {
-  res.render('store/dashboard');
-});
+// router.get('/admin', auth.ensureAuthenticated, auth.isAdmin, (req, res) => {
+//   res.render('store/dashboard');
+// });
 
 module.exports = router;

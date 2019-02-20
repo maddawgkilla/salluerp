@@ -6,18 +6,20 @@ const passport = require('passport');
 // User Model
 const User = require("../models/User");
 
+const auth = require('../config/auth');
+
 // Login Page
 router.get("/login", (req, res) => {
     res.render("user/login");
 });
 
 // Register Page
-router.get("/register", (req, res) => {
+router.get("/register", auth.ensureAuthenticated, auth.isAdmin,  (req, res) => {
     res.render("user/register");
 });
 
 //Register Handle
-router.post("/register", (req, res) => {
+router.post("/register", auth.ensureAuthenticated, auth.isAdmin, (req, res) => {
     let {
         username,
         password,

@@ -5,9 +5,10 @@ var router = express.Router();
 const Order = require("../models/Order");
 const Buyer = require("../models/Buyer");
 
+const auth = require("../config/auth");
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', auth.ensureAuthenticated, function(req, res, next) {
   Order.find().then((foundOrders) => {
     // res.json(foundOrders);
     res.render('order/index', {orders: foundOrders});
@@ -16,7 +17,7 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/new', (req, res, next) => {
+router.get('/new',auth.ensureAuthenticated, (req, res, next) => {
   Buyer.find().then((foundBuyers) => {
     res.render('order/new', {
       foundBuyers
@@ -26,7 +27,7 @@ router.get('/new', (req, res, next) => {
   });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', auth.ensureAuthenticated, (req, res, next) => {
   // res.json(req);
   console.log(req.body);
   const { shopNo, weight, orderType, cost, costPerKg, buyer, is_credit, discount } = req.body;
