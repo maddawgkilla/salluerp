@@ -1,42 +1,59 @@
 {{> navbar}}
 
-<script type="text/javascript">
-</script>
+<link href="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.css" rel="stylesheet">
+
+<script src="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.13.4/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
 <div class="mt-5">
     <div class="content order-table">
+        <div id="toolbar">
+            <select class="form-control">
+                <option value="">Export Basic</option>
+                <option value="all">Export All</option>
+                <option value="selected">Export Selected</option>
+            </select>
+        </div>
         <h4>Total Orders: {{orders.length}}</h4>
         <div class="row mb-5">
             <button id="cashOrders" class="offset-3 col-sm-2 btn btn-primary">Cash Orders</button>
             <button id="creditOrders" class="col-sm-2 offset-2 btn btn-primary">Credit Orders</button>
         </div>
-        <table class="table">
-        <thead>
-            <tr>
-            <th scope="col">Order #</th>
-            <th scope="col">Shop No.</th>
-            <th scope="col">Weight</th>
-            <th scope="col">Cost</th>
-            <th scope="col">Per Kg</th>
-            <th scope="col">Credit</th>
-            <th scope="col">Discount</th>
-            <th scope="col">Created At</th>
-            </tr>
-        </thead>
-        <tbody>
-        {{#each orders}}
-            <tr>
-            <th scope="row">{{this._id}}</th>
-            <td>{{this.shop_no}}</td>
-            <td>{{this.weight}}</td>
-            <td>{{this.cost}}</td>
-            <td>{{this.cost_per_kg}}</td>
-            <td>{{this.is_credit}}</td>
-            <td>{{this.discount}}</td>
-            <td>{{this.created_at}}</td>
-            </tr>
-        {{/each}}
-        </tbody>
+        <table class="table" id="table" data-filter-control="true" data-show-clear="true">
+            <thead>
+                <tr>
+                    <th data-filter-control="input" data-field="orderNo" scope="col">Order #</th>
+                    <th data-filter-control="input" data-field="shopNo" scope="col">Shop No.</th>
+                    <th data-filter-control="input" data-field="weight" scope="col">Weight</th>
+                    <th data-filter-control="input" data-field="cost" scope="col">Cost</th>
+                    <th data-filter-control="input" data-field="perkg" scope="col">Per Kg</th>
+                    <th data-filter-control="select" data-field="credit" scope="col">Credit</th>
+                    <th data-filter-control="input" data-field="discount" scope="col">Discount</th>
+                    <th data-filter-control="input" data-field="createdAt" scope="col">Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each orders}}
+                <tr>
+                    <th scope="row">{{this._id}}</th>
+                    <td>{{this.shop_no}}</td>
+                    <td>{{this.weight}}</td>
+                    <td>{{this.cost}}</td>
+                    <td>{{this.cost_per_kg}}</td>
+                    <td>{{this.is_credit}}</td>
+                    <td>{{this.discount}}</td>
+                    <td scope="row">{{this.created_at}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
         </table>
     </div>
 </div>
+
+
+
+<script>
+  $(function() {
+    $('#table').bootstrapTable()
+  })
+</script>

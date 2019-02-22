@@ -1,0 +1,57 @@
+{{> navbar}}
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+
+<script src="/javascripts/tebundle.js"></script>
+
+<div class="mt-5">
+    <div class="content order-table">
+        <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-show-export="true"
+            data-click-to-select="true" data-toolbar="#toolbar">
+            <thead>
+                <tr>
+                    <th data-field="state" data-checkbox="true"></th>
+                    <th data-filter-control="input" data-field="orderNo">Order #</th>
+                    <th data-filter-control="select" data-field="shopNo">Shop No.</th>
+                    <th data-filter-control="input" data-field="weight">Weight</th>
+                    <th data-filter-control="input" data-field="cost">Cost</th>
+                    <th data-filter-control="select" data-field="perkg">Per Kg</th>
+                    <th data-filter-control="select" data-field="credit">Credit</th>
+                    <th data-filter-control="input" data-field="discount">Discount</th>
+                    <th data-sortable="true" data-field="createdAt">Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each orders}}
+                <tr>
+                    <td class="bs-checkbox "><input name="btSelectItem" type="checkbox"></td>
+                    <td>{{this._id}}</td>
+                    <td>{{this.shop_no}}</td>
+                    <td>{{this.weight}}</td>
+                    <td>{{this.cost}}</td>
+                    <td>{{this.cost_per_kg}}</td>
+                    <td>{{this.is_credit}}</td>
+                    <td>{{this.discount}}</td>
+                    <td>{{this.created_at}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+   $(document).ready(function() {
+       console.log("JQuery Started");
+
+       $('#table').DataTable();
+
+$("table").tableExport({
+    bootstrap: false
+});
+
+   });
+</script>

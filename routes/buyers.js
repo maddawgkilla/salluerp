@@ -25,7 +25,8 @@ router.get('/:buyer_name', (req, res) => {
     if(buyer) {
       Order.find().where('buyer_name').equals(buyer_name).then((orders) => {
         // if(orders) {
-          res.render('buyer/orders', {orders});
+          res.render('buyer/neworders', {orders});
+          // res.render("buyer/test2");
         // } else {
         // console.log(orders);
         // }

@@ -1,0 +1,35 @@
+{{> navbar}}
+
+<link href="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.css" rel="stylesheet">
+
+<script src="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.13.4/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+
+<table
+  id="table" data-filter-control="true" data-filter-show-clear="true">
+  <thead>
+    <tr>
+      <th data-field="id">ID</th>
+      <th data-field="name" data-filter-control="input">Item Name</th>
+      <th data-field="price" data-filter-control="select">Item Price</th>
+    </tr>
+  </thead>
+  <tbody>
+		<tr>
+			<td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+			<td>Valérie</td>
+			<td>01/09/2015</td>
+		</tr>
+		<tr>
+			<td class="bs-checkbox "><input data-index="1" name="btSelectItem" type="checkbox"></td>
+			<td>Eric</td>
+			<td>05/09/2015</td>
+		</tr>
+    </tbody>
+</table>
+
+<script>
+  $(function() {
+    $('#table').bootstrapTable()
+  })
+</script>
